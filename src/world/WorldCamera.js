@@ -20,5 +20,6 @@ class WorldCamera {
 
     static update(time, dt) {
         this.cam.setZoom(this.zoom(this.vertTiles))
+        this.cam.rotation += dt
     }
 }
