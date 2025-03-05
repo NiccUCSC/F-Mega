@@ -6,3 +6,6 @@ __pycache__/
 # Ignore virtual environments
 pyenv/
 node_modules/
+
+# Custom
+*.zip
