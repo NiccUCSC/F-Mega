@@ -18,6 +18,6 @@ let config = {
     scene: [ Load, Menu, Play, UI ]
 }
 
-let game = new Phaser.Game(config)
+const game = new Phaser.Game(config)
 
 let { width, height } = game.config
