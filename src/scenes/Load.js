@@ -67,6 +67,10 @@ class Load extends Phaser.Scene {
 
         this.load.tilemapTiledJSON('multiroad', 'MultiRoad.tmj')
 
+
+        this.load.tilemapTiledJSON('track', 'track.tmj')
+
+
         // UI
         this.load.path = './assets/img/'
         this.load.image('speedomoter', 'Speedomoter3.png')

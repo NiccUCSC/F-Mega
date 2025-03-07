@@ -36,6 +36,8 @@ class Play extends Phaser.Scene {
         World.loadGame(this)
 
         this.scene.launch('uiScene')
+
+        // this.track = new Track(this, 0, 0)
     }
 
     onBeginContact(contact) {
@@ -130,6 +132,7 @@ class Play extends Phaser.Scene {
 
     physicsUpdate(time, dt) {       // time since last update, world step time
         if (this.car) this.car.physicsUpdate(time, dt)
+        if (this.car2) this.car2.physicsUpdate(time, dt)
         for (let cop of this.cops) cop.physicsUpdate(time, dt)
         for (let item of this.items) item.physicsUpdate(time, dt)
         RoadTile.physicsUpdate(time, dt)
@@ -138,6 +141,7 @@ class Play extends Phaser.Scene {
 
     afterPhysicsUpdate() {
         this.car.afterPhysicsUpdate()
+        this.car2.afterPhysicsUpdate()
     }
 
     update(time, dt) {
@@ -155,6 +159,8 @@ class Play extends Phaser.Scene {
         }
 
         if (this.car) this.car.update(time, dt)
+        if (this.car2) this.car2.update(time, dt)
+
         for (let cop of this.cops) cop.update(time, dt)
         for (let item of this.items) item.update(time, dt)
 

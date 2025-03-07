@@ -1,4 +1,5 @@
 class UI extends Phaser.Scene {
+
     constructor() {
         super('uiScene')
     }
@@ -28,6 +29,8 @@ class UI extends Phaser.Scene {
             this.controls.push(this.add.sprite(0, 0, "controls", i).setOrigin(0, 1))
         for (let i = 0; i < this.numControls; i++)
             this.controls.push(this.add.sprite(0, 0, "letters", letterToIndex(this.controlsKeys.charAt(i))).setOrigin(0, 1))
+
+        this.splitScreenGraphics = this.add.graphics()
     }
 
     physicsUpdate(time, dt) {
