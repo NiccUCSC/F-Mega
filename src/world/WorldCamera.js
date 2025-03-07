@@ -29,10 +29,10 @@ class WorldCamera {
         this.zoom = tiles => 2 * scene.cameras.main.height / 16 / tiles
     }
 
-    static startFollow(target) {
-        this.cam.startFollow(target, false, 0.5, 0.5)
+    static startFollow(target, target2) {
+        // this.cam.startFollow(target, false, 0.5, 0.5)
         this.cam1.startFollow(target, false, 0.5, 0.5)
-        this.cam2.startFollow(target, false, 0.5, 0.5)
+        this.cam2.startFollow(target2, false, 0.5, 0.5)
     }
 
     static stopFollow() {
@@ -108,6 +108,8 @@ class WorldCamera {
             this.mask2.invertAlpha = true
             this.cam2.setMask(this.mask2)
 
+            console.log(this.mask1)
+
             
 
 
@@ -136,6 +138,6 @@ class WorldCamera {
         this.cam1.rotation = this.scene.car ? -Math.PI/2 - this.scene.car.rotation : 0
 
         this.cam2.setZoom(this.zoom(this.vertTiles))
-        this.cam2.rotation = -time
+        this.cam2.rotation = this.scene.car2 ? -Math.PI/2 - this.scene.car2.rotation : 0
     }
 }

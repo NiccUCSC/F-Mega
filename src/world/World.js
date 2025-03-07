@@ -72,6 +72,11 @@ class World {
         this.leftKey = this.PlayScene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A)
         this.rightKey = this.PlayScene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D)
 
+        this.upKey2 = this.PlayScene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)
+        this.downKey2 = this.PlayScene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN)
+        this.leftKey2 = this.PlayScene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)
+        this.rightKey2 = this.PlayScene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT) 
+
         this.debugKey = this.PlayScene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E)
         this.timeScaleUpKey = this.PlayScene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.PERIOD)
         this.timeScaleDownKey = this.PlayScene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.COMMA)
@@ -290,12 +295,13 @@ class World {
 
 
         console.log(`Game started with ID: ${this.gameID}, Seed: ${this.randomSeed}`)
-        scene.car = new Car(scene, 0, 0)    // place car
+        scene.car = new Car(scene, 0, -3, true)    // place car
+        scene.car2 = new Car(scene, 0, 3, false)    // place car
         scene.cops = new Set()
         scene.items = new Set()
         scene.generateCop(-10, 0)
         WorldCamera.init(scene)
-        WorldCamera.startFollow(scene.car)
+        WorldCamera.startFollow(scene.car, scene.car2)
         let rootTile = new RoadTile(0, 0)                  // place first tile
 
         rootTile.generateNext()

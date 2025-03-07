@@ -1,12 +1,13 @@
 class Car extends Vehicle {
-    constructor(scene, x, y, texture="car") {
-        super(scene, 0, 0, texture, {onDeathCallback: World.PlayScene.onGameOver})
+    constructor(scene, x, y, player1=true) {
+        super(scene, 0, 0, "car", {onDeathCallback: World.PlayScene.onGameOver})
         scene.add.existing(this)
         this.scene = scene
         this.setDepth(10)
         this.setOrigin(0.5, 0.5)
 
         this.name = "car"
+        this.player1 = player1
 
         this.box2dBody = this.scene.world.createBody({
             type: "dynamic",
@@ -64,9 +65,13 @@ class Car extends Vehicle {
         // process key inputs
         let fowardForce = 0
         let steeringForce = 0
+
+        let upDir = this.player1 ? World.upKey.isDown - World.downKey.isDown : World.upKey2.isDown - World.downKey2.isDown
+        let rightDir = this.player1 ? World.rightKey.isDown - World.leftKey.isDown : World.rightKey2.isDown - World.leftKey2.isDown
+
         if (this.alive) {
-            fowardForce = this.wheelAcc * (1 + 0.5 * World.upKey.isDown - 0.5 * World.downKey.isDown)
-            steeringForce = World.rightKey.isDown - World.leftKey.isDown
+            fowardForce = this.wheelAcc * (1 + 0.5 * upDir)
+            steeringForce = rightDir
         }
 
         // wheel speed
