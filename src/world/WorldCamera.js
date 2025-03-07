@@ -8,6 +8,8 @@ class WorldCamera {
 
     static mask1 = null
     static mask1Graphics = null
+    static mask2 = null
+    static mask2Graphics = null
 
     static scene = null
 
@@ -15,22 +17,16 @@ class WorldCamera {
         this.scene = scene
         this.cam = scene.cameras.main
 
-        console.log(this.cam)
-
-        this.cam1 = scene.cameras.add(0, 0, World.screenWidth / 2, World.screenHeight)
-        this.cam2 = scene.cameras.add(World.screenWidth / 2, 0, World.screenWidth / 2, World.screenHeight)
-
+        if (!this.cam1) {
+            this.cam1 = scene.cameras.add(0, 0, World.screenWidth / 2, World.screenHeight)
+            this.cam2 = scene.cameras.add(World.screenWidth / 2, 0, World.screenWidth / 2, World.screenHeight)
+        }        
 
         this.vertTiles = 96
         this.zoom = tiles => 2 * scene.cameras.main.height / 16 / tiles
-
-
  
         this.mask1Graphics = scene.add.graphics()
         this.mask2Graphics = scene.add.graphics()
-
-        this.mask = new Phaser.Display.Masks.GeometryMask(this.scene, this.graphics);
-        this.cam1.setMask(this.mask)
     }
 
     static startFollow(target) {
@@ -78,10 +74,15 @@ class WorldCamera {
         }
 
 
+        const targetLerp = (curr, target, dt) => {
+            const halfLife = 0.1
+            let dist = target - curr
+            dist = dist * 0.5 ** (dt / halfLife)
+            return curr + dist
+        }
 
-
-        this.cam1.setZoom(this.zoom(this.vertTiles))
-        this.cam1.rotation = time
+        this.cam1.setZoom(this.zoom(this.vertTiles))        
+        this.cam1.rotation = this.scene.car ? -Math.PI/2 - this.scene.car.rotation : 0
 
         this.cam2.setZoom(this.zoom(this.vertTiles))
         this.cam2.rotation = -time

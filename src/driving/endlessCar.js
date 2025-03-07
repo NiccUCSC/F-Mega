@@ -35,6 +35,9 @@ class Car extends Vehicle {
         this.groundAccStatic = 80
         this.groundAccKinetic = 55
 
+        this.trueRotation = 0
+        this.angularSpeed = 0
+
         console.log(`Car at ${this.box2dBody.getPosition()}`)
         this.onDeathCallback = () => {
             this.scene.onGameOver()
@@ -78,11 +81,11 @@ class Car extends Vehicle {
             this.steering += steeringForce * this.steeringRate * dt
             this.steering = Math.max(Math.min(this.steering, 1), -1)
         }
-        let angularSpeed = this.steering * (speed + Math.abs(this.wheelSpeed)) / 2 / this.turnRadius
-        this.rotation += angularSpeed * dt
+        this. angularSpeed = this.steering * (speed + Math.abs(this.wheelSpeed)) / 2 / this.turnRadius
+        this.trueRotation += this.angularSpeed * dt
 
         // direction of car
-        let dir = [Math.cos(this.rotation), Math.sin(this.rotation)]
+        let dir = [Math.cos(this.trueRotation), Math.sin(this.trueRotation)]
         let wheelVel = planck.Vec2(dir[0], dir[1]).mul(this.wheelSpeed)
 
         let slideVel = wheelVel.clone().sub(vel)
@@ -101,7 +104,7 @@ class Car extends Vehicle {
         for (let force of forces) this.box2dBody.applyForce(force, pos)
 
         this.box2dBody.setAngularVelocity(0)
-        this.box2dBody.setAngle(this.rotation)
+        this.box2dBody.setAngle(this.trueRotation)
 
         let frame = Phaser.Math.Clamp(Math.floor((100 - this.health) * 3 / 100), 0, 3)
         this.setFrame(frame)
@@ -121,6 +124,8 @@ class Car extends Vehicle {
 
         deltaPos.mul(physicsLag)
         aproxPos.add(deltaPos)
+
+        this.rotation = this.trueRotation + this.angularSpeed * physicsLag
 
         this.setPosition(aproxPos.x * 16, aproxPos.y * 16)
         super.sendTempSkidMarks(aproxPos.x, aproxPos.y)
