@@ -20,13 +20,13 @@ class WorldCamera {
         if (!this.cam1) {
             this.cam1 = scene.cameras.add(0, 0, World.screenWidth / 2, World.screenHeight)
             this.cam2 = scene.cameras.add(World.screenWidth / 2, 0, World.screenWidth / 2, World.screenHeight)
+            this.splitScreenGraphics = scene.add.graphics()
+            this.mask1Graphics = scene.add.graphics()
+            this.mask2Graphics = scene.add.graphics()
         }        
 
         this.vertTiles = 96
         this.zoom = tiles => 2 * scene.cameras.main.height / 16 / tiles
- 
-        this.mask1Graphics = scene.add.graphics()
-        this.mask2Graphics = scene.add.graphics()
     }
 
     static startFollow(target) {
@@ -47,17 +47,68 @@ class WorldCamera {
             this.prevWidth = this.cam.width
             this.prevHeight = this.cam.height
 
+
+            let points = [
+                0,                      this.cam.height,
+                0,                      0,
+            ]
+            let path = []
+            let n = 10
+
+            for (let i = 0; i <= n; i++) {
+                let theta =  i * 2 * Math.PI / n
+
+                let x = this.cam.width / 2  + World.screenUnit * 15 * (Math.cos(5*theta))
+                let y = this.cam.height * i / n
+                points.push(x, y)
+                path.push(x, y)
+            }
+
+
+            let splitScreenGraphics = World.UIScene.splitScreenGraphics
+
+            splitScreenGraphics.clear()
+            splitScreenGraphics.lineStyle(World.screenUnit*6, 0x000000)// Black color with alpha transparency
+            splitScreenGraphics.beginPath()
+            for (let i = 0; i < n; i++) {
+                let x0 = path[i*2]
+                let y0 = path[i*2+1]
+                let x1 = path[i*2+2]
+                let y1 = path[i*2+3]
+
+
+                splitScreenGraphics.moveTo(x0, y0)
+                splitScreenGraphics.lineTo(x1, y1)
+            }
+            splitScreenGraphics.strokePath()
+            splitScreenGraphics.closePath()
+
+            splitScreenGraphics.fillStyle(0x000000)
+            for (let i = 0; i <= n; i++) {
+                let x = path[i*2]
+                let y = path[i*2+1]
+                splitScreenGraphics.fillCircle(x, y, World.screenUnit*6/2)
+            }
+
+
+
+            let poly = new Phaser.Geom.Polygon(points)
+
             this.mask1Graphics.clear()
             this.mask1Graphics.fillStyle(0x000000)
-            this.mask1Graphics.fillRect(0, 0, this.cam.width/2, this.cam.height)
+            this.mask1Graphics.fillPoints(poly.points, true)
             this.mask1 = this.mask1Graphics.createGeometryMask()
             this.cam1.setMask(this.mask1)
+            
 
             this.mask2Graphics.clear()
             this.mask2Graphics.fillStyle(0x000000)
-            this.mask2Graphics.fillRect(this.cam.width/2, 0, this.cam.width/2, this.cam.height)
+            this.mask2Graphics.fillPoints(poly.points, true)
             this.mask2 = this.mask2Graphics.createGeometryMask()
+            this.mask2.invertAlpha = true
             this.cam2.setMask(this.mask2)
+
+            
 
 
             const maxDiameter = ((this.cam.width / 2)**2 + this.cam.height**2)**0.5
