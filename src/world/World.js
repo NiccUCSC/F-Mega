@@ -106,7 +106,7 @@ class World {
         })
     
         this.zoomOutKey.on('down', () => {
-            WorldCamera.vertTiles = Math.min(WorldCamera.vertTiles + 32, 384)
+            WorldCamera.vertTiles = Math.min(WorldCamera.vertTiles + 32, 1024)
             console.log(`Vertical Zoom = ${WorldCamera.vertTiles}`)
         })
     
@@ -302,9 +302,9 @@ class World {
         scene.generateCop(-10, 0)
         WorldCamera.init(scene)
         WorldCamera.startFollow(scene.car, scene.car2)
-        let rootTile = new RoadTile(0, 0)                  // place first tile
+        // let rootTile = new RoadTile(0, 0)                  // place first tile
 
-        rootTile.generateNext()
+        // rootTile.generateNext()
         RoadTile.emptySpawnQueue()                          // generates all the tiles in spawn queue at once
 
         scene.worldTimeSinceUpdate = 0

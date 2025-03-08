@@ -62,6 +62,7 @@ class Load extends Phaser.Scene {
         })
         
         this.load.image('tileset', 'ExtrudedTileMap1.png')
+        this.load.image('tileset1', 'TileSet_V2.png')
         this.load.path = './assets/tiles/'
         this.load.tilemapTiledJSON('tile_straight_road', 'StraightRoad.tmj')
 

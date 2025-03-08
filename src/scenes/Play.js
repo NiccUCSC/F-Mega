@@ -37,7 +37,7 @@ class Play extends Phaser.Scene {
 
         this.scene.launch('uiScene')
 
-        // this.track = new Track(this, 0, 0)
+        this.track = new Track(this, 0, 0)
     }
 
     onBeginContact(contact) {
