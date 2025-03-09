@@ -261,7 +261,7 @@ class World {
         scene.car2 = new Car(scene, 0, 3, false)    // place car
         scene.cops = new Set()
         scene.items = new Set()
-        scene.generateCop(-10, 0)
+        //scene.generateCop(-10, 0)
         WorldCamera.init(scene)
         WorldCamera.startFollow(scene.car, scene.car2)
         // let rootTile = new RoadTile(0, 0)                  // place first tile

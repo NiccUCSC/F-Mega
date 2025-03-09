@@ -46,12 +46,15 @@ class Load extends Phaser.Scene {
 
         // Play scene
         this.load.path = './assets/img/'
-        this.load.image('cop', 'CopCar.png')
         this.load.image('background', "Background.png")
 
         this.load.image('repairkit', 'RepairKit.png')
         this.load.image('wheelrepair', 'WheelRepair.png')
-        this.load.spritesheet('car', 'RedRaceCarDamages.png', {
+        this.load.spritesheet('car-red', 'RedRaceCarDamages.png', {
+            frameWidth: 32, // Width of each frame
+            frameHeight: 16, // Height of each frame
+        })
+        this.load.spritesheet('car-green', 'GreenRaceCarDamages.png', {
             frameWidth: 32, // Width of each frame
             frameHeight: 16, // Height of each frame
         })

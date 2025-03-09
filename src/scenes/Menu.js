@@ -10,12 +10,15 @@ class Menu extends Phaser.Scene {
 
         this.bgImg = this.add.sprite(0, 0, 'menu')
         this.bgImg.setOrigin(0.5, 0.5)
-
-        World.initMenu(this)
+        this.bgImg.setDisplaySize(width, height)
         
-        // To-do: add particles to main menu
         this.startImg = this.add.sprite(width * 49/96, height * 15/24, 'menu-start')
         this.startImg.setOrigin(0.5, 0.5)
+        this.startImg.setDisplaySize(width/2, height/8)
+        
+        // To-do: add particles to main menu
+
+        World.initMenu(this)
     }
 
     update(time, dt) {

@@ -1,6 +1,6 @@
 class Car extends Vehicle {
     constructor(scene, x, y, player1=true) {
-        super(scene, 0, 0, "car", {onDeathCallback: World.PlayScene.onGameOver})
+        super(scene, 0, 0, player1 ? "car-red" : "car-green", {onDeathCallback: World.PlayScene.onGameOver})
         scene.add.existing(this)
         this.scene = scene
         this.setDepth(10)

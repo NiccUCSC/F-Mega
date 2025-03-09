@@ -59,12 +59,11 @@ class Play extends Phaser.Scene {
         }
 
         // setment 1
-        let values = { RoadTile: 0x1, Car: 0x2, Cop: 0x4, Item: 0x8 }
+        let values = { RoadTile: 0x1, Car: 0x2, Item: 0x8 }
         let tile = getInstance(RoadTile)
         let car = getInstance(Car)
-        let cop = getInstance(Cop)
         let item = getInstance(Item)
-        let key = !!tile * values.RoadTile | !!car * values.Car | !!cop * values.Cop | !!item * values.Item
+        let key = !!tile * values.RoadTile | !!car * values.Car | !!item * values.Item
 
         switch (key) {
         case values.RoadTile | values.Car:
@@ -77,20 +76,20 @@ class Play extends Phaser.Scene {
                 break   
             }
             break
-        case values.RoadTile | values.Cop:
+        case values.RoadTile:
             switch (tile.fix.name) {
             case "enterSensor":
                 break
             case "wall":
-                cop.obj.impact(impactVelocity, "wall")
+                // cop.obj.impact(impactVelocity, "wall")
                 break   
             }
             break
-        case values.Cop | values.Car:
-            cop.obj.impact(impactVelocity, "car")
-            car.obj.impact(impactVelocity, "cop")
-            car.obj.addCollide(cop.obj)
-            World.playCopBonk()
+        case values.Car:
+            // cop.obj.impact(impactVelocity, "car")
+            // car.obj.impact(impactVelocity, "cop")
+            // car.obj.addCollide(cop.obj)
+            // World.playCopBonk()
             break
         case values.Item | values.Car:
             item.obj.onCollect(car.obj)
@@ -109,22 +108,22 @@ class Play extends Phaser.Scene {
             return null
         }
 
-        let values = { RoadTile: 0x1, Car: 0x2, Cop: 0x4 }
+        let values = { RoadTile: 0x1, Car: 0x2 }
         let tile = getInstance(RoadTile)
         let car = getInstance(Car)
-        let cop = getInstance(Cop)
-        let key = !!tile * values.RoadTile | !!car * values.Car | !!cop * values.Cop
+        // let cop = getInstance(Cop)
+        let key = !!tile * values.RoadTile | !!car * values.Car
 
         switch (key) {
-        case values.Cop | values.Car:
-            car.obj.removeCollide(cop.obj)
+        case values.Car:
+            // car.obj.removeCollide(cop.obj)
             break
         }
     }
 
-    generateCop(x, y) {
-        this.cops.add(new Cop(this, x, y))
-    }
+    // generateCop(x, y) {
+    //     this.cops.add(new Cop(this, x, y))
+    // }
 
     generateItem(x, y, type) {
         this.items.add(new type(World.PlayScene, x, y))
@@ -133,7 +132,7 @@ class Play extends Phaser.Scene {
     physicsUpdate(time, dt) {       // time since last update, world step time
         if (this.car) this.car.physicsUpdate(time, dt)
         if (this.car2) this.car2.physicsUpdate(time, dt)
-        for (let cop of this.cops) cop.physicsUpdate(time, dt)
+        // for (let cop of this.cops) cop.physicsUpdate(time, dt)
         for (let item of this.items) item.physicsUpdate(time, dt)
         RoadTile.physicsUpdate(time, dt)
         World.physicsUpdate(time, dt)
@@ -161,7 +160,7 @@ class Play extends Phaser.Scene {
         if (this.car) this.car.update(time, dt)
         if (this.car2) this.car2.update(time, dt)
 
-        for (let cop of this.cops) cop.update(time, dt)
+        // for (let cop of this.cops) cop.update(time, dt)
         for (let item of this.items) item.update(time, dt)
 
         WorldCamera.update(time, dt)
