@@ -41,11 +41,13 @@ class Load extends Phaser.Scene {
 
         // Menu Background
         this.load.path = './assets/img/'
-        this.load.image('menubackgroud', "menuBackground2.png")
+        this.load.image('menu', "Menu.png")
+        this.load.image('menu-start', "TextStart.png")
 
         // Play scene
         this.load.path = './assets/img/'
         this.load.image('cop', 'CopCar.png')
+        this.load.image('background', "Background.png")
 
         this.load.image('repairkit', 'RepairKit.png')
         this.load.image('wheelrepair', 'WheelRepair.png')

@@ -5,36 +5,39 @@ class Menu extends Phaser.Scene {
 
    
     create() {
-        this.screenHeight = this.cameras.main.height
-        this.backgroudImage = this.add.sprite(0, 0, 'menubackgroud')
-        this.backgroudImage.setOrigin(0.5, 0.5)
+        let width = this.cameras.main.width
+        let height = this.cameras.main.height
+
+        this.bgImg = this.add.sprite(0, 0, 'menu')
+        this.bgImg.setOrigin(0.5, 0.5)
 
         World.initMenu(this)
         
+        // To-do: add particles to main menu
+        this.startImg = this.add.sprite(width * 49/96, height * 15/24, 'menu-start')
+        this.startImg.setOrigin(0.5, 0.5)
     }
 
     update(time, dt) {
         time /= 1000
         dt /= 1000
 
-        let wid = this.cameras.main.width
-        let hei = this.cameras.main.height
+        let width = this.cameras.main.width
+        let height = this.cameras.main.height
 
         let imgAspect = 483 / 249
 
-        let vsize = Math.min(hei, wid/imgAspect)
+        let vSize = Math.min(height, width/imgAspect)
 
-        this.backgroudImage.setPosition(wid/2, hei/2)
-        this.backgroudImage.setDisplaySize(vsize*imgAspect, vsize)
+        this.bgImg.setPosition(width/2, height/2)
+        this.bgImg.setDisplaySize(vSize*imgAspect, vSize)
 
-        if (World.babyDifficulty.isDown) World.difficulty = 0
-        if (World.easyDifficulty.isDown) World.difficulty = 1
-        if (World.normalDifficulty.isDown) World.difficulty = 2
-        if (World.hardDifficulty.isDown) World.difficulty = 3
-        if (World.insaneDifficulty.isDown) World.difficulty = 4
-
-        if (World.babyDifficulty.isDown || World.easyDifficulty.isDown || World.normalDifficulty.isDown || World.hardDifficulty.isDown || World.insaneDifficulty.isDown) {
+        if (World.start.isDown) {
             this.scene.start('playScene')
         }
+
+        // Make start text blink
+        let blink_length = 0.5 // In seconds
+        this.startImg.setAlpha(Math.round(time / blink_length)%2==0 ? 1 : 0)
     }
 }

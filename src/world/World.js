@@ -23,36 +23,24 @@ class World {
     static pointMult = 1e6 / this.target1miltime / this.avgSpeed**2     // should take 10 mins at 1x speed at 32 m/s to reach 1000000 points
     static fullScoreDist = 32 * 60                                      // should take 1 minute to reach full distance score at 1x speed
 
-    static difficulty = 3
     static playSpeedMultiplier = 1
-    static difficultyMultipliers = [0.5, 0.75, 0.875, 1, 1.25]
 
     static bgMusic = null
 
     static initMenu(menuScene) {
         this.MenuScene = menuScene
 
-        this.babyDifficulty = this.MenuScene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE)
-        this.easyDifficulty = this.MenuScene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO)
-        this.normalDifficulty = this.MenuScene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE)
-        this.hardDifficulty = this.MenuScene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FOUR)
-        this.insaneDifficulty = this.MenuScene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FIVE)
+        this.start = this.MenuScene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
     }
 
     static initUIScene(uiScene) {
         this.UIScene = uiScene
     }
 
-    static updateDifficulty
-
     static init(playScene) {
         this.PlayScene = playScene
 
-        this.babyDifficulty = this.PlayScene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE)
-        this.easyDifficulty = this.PlayScene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO)
-        this.normalDifficulty = this.PlayScene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE)
-        this.hardDifficulty = this.PlayScene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FOUR)
-        this.insaneDifficulty = this.PlayScene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FIVE)
+        this.start = this.MenuScene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
 
         playScene.input.keyboard.on('keydown', (event) => {
             if (!this.gameStarted && this.timeTillRestart == 0 && 
@@ -130,21 +118,10 @@ class World {
         this.bgMusics0 = [this.bgMusics[3]]
         this.bgMusics1234 = [this.bgMusics[0], this.bgMusics[1], this.bgMusics[2]]
 
-        this.playSpeedMultiplier = this.difficultyMultipliers[this.difficulty]
+        this.playSpeedMultiplier = 1
 
         this.playNextSong = () => {
-            let songPool = null
-            switch (this.difficulty) {
-                case 0:
-                    songPool = this.bgMusics0
-                    break
-                case 1:
-                case 2:
-                case 3:
-                case 4:
-                    songPool = this.bgMusics1234
-                    break
-            }
+            let songPool = this.bgMusics1234
             let nextSongOptions = songPool.length > 1 ? songPool.filter(music => music != this.bgMusic) : songPool
             let nextSong = Phaser.Utils.Array.GetRandom(nextSongOptions)
 
@@ -240,26 +217,12 @@ class World {
             sound.setVolume(skidVolume)
         }
 
-        let prevDifficulty = this.difficulty
-        if (this.babyDifficulty.isDown)     this.difficulty = 0        
-        if (this.easyDifficulty.isDown)     this.difficulty = 1
-        if (this.normalDifficulty.isDown)   this.difficulty = 2
-        if (this.hardDifficulty.isDown)     this.difficulty = 3
-        if (this.insaneDifficulty.isDown)   this.difficulty = 4
-
-        this.playSpeedMultiplier = this.difficultyMultipliers[this.difficulty]
+        this.playSpeedMultiplier = 1
 
         if (car.alive) {
             this.playTime += 1/64                                   // simulated play time in scaled ticks
             this.realPlayTime += 1/64/this.playSpeedMultiplier      // apprximate real play time in seconds
             this.PlayScene.worldTimeScale = this.playSpeedMultiplier * (1 + Math.log(1 + this.realPlayTime / 180))
-        }
-
-        if (prevDifficulty != this.difficulty) {
-            this.resetGame(this.PlayScene)
-            this.timeTillRestart = this.restartDelay
-            this.playNextSong()
-            return
         }
     }
 
@@ -279,7 +242,6 @@ class World {
 
     static loadGame(scene) {
         this.bgMusic.setVolume(0.3)
-        console.log(this.difficulty)
 
 
         this.gameID = generateGameID(5, 5)
