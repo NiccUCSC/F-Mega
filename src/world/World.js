@@ -13,8 +13,7 @@ class World {
     static screenHeight = 480
     static screenUnit = 640 / 1000
     static carSpeedSquared = 0
-    static playerEngineHealth = 0
-    static playerWheelsHealth = 0
+    static playerPower = 0
     static playTime = 0
     static realPlayTime = 0
 
@@ -191,8 +190,7 @@ class World {
         let playerVel = car.box2dBody.getLinearVelocity()
         let playerPos = car.box2dBody.getPosition()
         this.carSpeedSquared = playerVel.x*playerVel.x + playerVel.y*playerVel.y
-        this.playerEngineHealth = car.health / 100
-        this.playerWheelsHealth = car.wheelHealth / 100
+        this.playerPower = car.power / 100
         if (this.PlayScene.car.alive) {
             let dx = playerPos.x - this.gamePrevPos.x
             let dy = playerPos.y - this.gamePrevPos.y
@@ -210,8 +208,7 @@ class World {
         this.UIScene.physicsUpdate(time, dt)
 
         this.bgMusic.setRate(this.PlayScene.worldTimeScale)
-        let skidPercent = car.skidPercent
-        let skidVolume = skidPercent ** 2 * 0.18
+        let skidVolume = car.skidPercent ** 2 * 0.18
 
         for (let sound of this.slideSFXs) {
             sound.setVolume(skidVolume)
@@ -252,8 +249,7 @@ class World {
         this.gameDist = 0
         this.gamePrevPos = { x: 0, y: 0 }
         this.carSpeedSquared = 0
-        this.playerEngineHealth = 1
-        this.playerWheelsHealth = 1
+        this.playerPower = 1
 
 
         console.log(`Game started with ID: ${this.gameID}, Seed: ${this.randomSeed}`)

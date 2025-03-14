@@ -57,7 +57,7 @@ class Car extends Vehicle {
         let angleDiff = getAngularDiff(this.rotation, Math.atan2(vel.y, vel.x))
         let slidePercent = Math.max(Math.min(Math.abs(angleDiff) / 0.5, 1), 0) * (speed > 1)
         let groundAcc = this.groundAccStatic * (1 - slidePercent) + this.groundAccKinetic * slidePercent
-        groundAcc *= clampedMap(this.wheelHealth, 0, 0.5, 0.25, 1)
+        groundAcc *= clampedMap(/*this.wheelHealth*/ 100, 0, 0.5, 0.25, 1)
 
         // update car sliding and render tiremarks
         super.sliding(slidePercent, time, dt)
@@ -86,7 +86,7 @@ class Car extends Vehicle {
             this.steering += steeringForce * this.steeringRate * dt
             this.steering = Math.max(Math.min(this.steering, 1), -1)
         }
-        this. angularSpeed = this.steering * (speed + Math.abs(this.wheelSpeed)) / 2 / this.turnRadius
+        this.angularSpeed = this.steering * (speed + Math.abs(this.wheelSpeed)) / 2 / this.turnRadius
         this.trueRotation += this.angularSpeed * dt
 
         // direction of car
@@ -111,7 +111,7 @@ class Car extends Vehicle {
         this.box2dBody.setAngularVelocity(0)
         this.box2dBody.setAngle(this.trueRotation)
 
-        let frame = Phaser.Math.Clamp(Math.floor((100 - this.health) * 3 / 100), 0, 3)
+        let frame = Phaser.Math.Clamp(Math.floor((100 - this.power) * 3 / 100), 0, 3)
         this.setFrame(frame)
 
         this.prevPos = {...this.prevPos, ...this.box2dBody.getPosition().clone()}

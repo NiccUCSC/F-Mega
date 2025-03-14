@@ -16,7 +16,7 @@ class WheelRepair extends Item {
     }
 
     onCollect(car) {
-        car.wheelHealth = Math.min(car.wheelHealth + 100, 100)
+        //car.wheelHealth = Math.min(car.wheelHealth + 100, 100)
         console.log("COLLECTED WHEEL REPAIR")
         this.alive = false
         World.playFixTires()

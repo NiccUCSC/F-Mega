@@ -10,6 +10,8 @@ class WorldCamera {
     static mask1Graphics = null
     static mask2 = null
     static mask2Graphics = null
+    static bg1 = null
+    static bg2 = null
 
     static scene = null
 
@@ -23,6 +25,10 @@ class WorldCamera {
             this.splitScreenGraphics = scene.add.graphics()
             this.mask1Graphics = scene.add.graphics()
             this.mask2Graphics = scene.add.graphics()
+            this.bg1 = scene.add.sprite(0, 0, 'background').setOrigin(0.5, 0.5).setDepth(-1)
+            this.bg2 = scene.add.sprite(0, 0, 'background').setOrigin(0.5, 0.5).setDepth(-1)
+            this.cam1.ignore(this.bg2)
+            this.cam2.ignore(this.bg1)
         }        
 
         this.vertTiles = 96
