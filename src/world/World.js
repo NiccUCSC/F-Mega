@@ -290,7 +290,7 @@ class World {
 
         let objs = scene.children.getChildren().slice()
         for (let obj of objs) {
-            if ((obj instanceof Car) || (obj instanceof Cop) || (obj instanceof Item))
+            if ((obj instanceof Car) || (obj instanceof Item))
                 obj.destroy()
         }
         RoadTile.destroy_all()
