@@ -222,7 +222,7 @@ class World {
         if (car.alive) {
             this.playTime += 1/64                                   // simulated play time in scaled ticks
             this.realPlayTime += 1/64/this.playSpeedMultiplier      // apprximate real play time in seconds
-            this.PlayScene.worldTimeScale = this.playSpeedMultiplier * (1 + Math.log(1 + this.realPlayTime / 180))
+            //this.PlayScene.worldTimeScale = this.playSpeedMultiplier * (1 + Math.log(1 + this.realPlayTime / 180))
         }
     }
 
