@@ -1,9 +1,10 @@
-// Endless Runner: Driftopia Police Chase
-// Name: Nicolas Vaillancourt
-// Date: 02/10/2025
-// Hours: 60+
-// Used Box2d physics engine to develop a fixed time step physics system that is consistant across different frame rates
-// Developed a random infinite terrain generation system with automatic wall hitbox creation
+// Make The Fake: F-MEGA, from JoJo's Bizarre Adventure
+// Names: Nicolas Vaillancourt, Niko DiStefano
+// Roles:
+//  Niko - Assets, Frontend Code
+//  Nicolas - Assets, Backend Code
+// Date: 03/18/2025
+// Hours: 100+
 
 
 'use strict'
