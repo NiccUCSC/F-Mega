@@ -89,7 +89,7 @@ class WorldCamera {
                 let y = path[i*2+1]
                 splitScreenGraphics.fillCircle(x, y, World.screenUnit*6/2)
             }
-
+            
 
 
             let poly = new Phaser.Geom.Polygon(points)
@@ -99,6 +99,7 @@ class WorldCamera {
             this.mask1Graphics.fillPoints(poly.points, true)
             this.mask1 = this.mask1Graphics.createGeometryMask()
             this.cam1.setMask(this.mask1)
+            this.cam1.setBackgroundColor(0x220022);
             
 
             this.mask2Graphics.clear()
@@ -107,6 +108,11 @@ class WorldCamera {
             this.mask2 = this.mask2Graphics.createGeometryMask()
             this.mask2.invertAlpha = true
             this.cam2.setMask(this.mask2)
+            this.cam2.setBackgroundColor(0x220022);
+
+            this.mask1Graphics.visible=false
+            this.mask2Graphics.visible=false
+
 
             console.log(this.mask1)
 
