@@ -21,4 +21,3 @@ let config = {
 
 const game = new Phaser.Game(config)
 const imgAspect = 483 / 249
-let { width, height } = game.config
