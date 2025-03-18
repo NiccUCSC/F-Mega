@@ -3,7 +3,6 @@ class Menu extends Phaser.Scene {
         super('menuScene')
     }
 
-   
     create() {
         let width = this.cameras.main.width
         let height = this.cameras.main.height

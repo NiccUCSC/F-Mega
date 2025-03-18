@@ -96,7 +96,7 @@ class Load extends Phaser.Scene {
             console.log('Local storage not supported')
         }
 
-        // go to Title scene
-        this.scene.start('menuScene')
+        // go to Credits scene
+        this.scene.start('creditsScene')
     }
 }
