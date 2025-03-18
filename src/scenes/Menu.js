@@ -25,8 +25,6 @@ class Menu extends Phaser.Scene {
         let width = this.cameras.main.width
         let height = this.cameras.main.height
 
-        let imgAspect = 483 / 249
-
         let vSize = Math.min(height, width/imgAspect)
 
         this.bgImg.setPosition(width/2, height/2)

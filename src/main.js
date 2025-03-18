@@ -19,6 +19,6 @@ let config = {
     scene: [ Load, Credits, Menu, Play, UI ]
 }
 
-let game = new Phaser.Game(config)
-
+const game = new Phaser.Game(config)
+const imgAspect = 483 / 249
 let { width, height } = game.config
