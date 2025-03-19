@@ -3,6 +3,14 @@ class Track {
     static tileSize = 64
     static gridPixelSize = Track.tileSize * Track.gridSize
 
+    /*  TILE IDs
+        1: finish line
+        2-23: checkpoints
+        24: fall death
+        47: wall
+        all other numbers: road
+    */
+
     constructor(scene, x, y) {
         this.scene = scene
 
