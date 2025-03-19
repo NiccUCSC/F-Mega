@@ -39,10 +39,14 @@ class Load extends Phaser.Scene {
         this.load.audio("carcrash", "crash-7075.mp3")
         this.load.audio("carexplode", "explosion-6055.mp3")
 
-        // Menu Background
+        // Menu scene
         this.load.path = './assets/img/'
         this.load.image('menu', "Menu.png")
         this.load.image('menu-start', "TextStart.png")
+
+        // Particles
+        this.load.image('particle-sparkle', "ParticleSparkle.png")
+        this.load.image('particle-fire', "ParticleFire.png")
 
         // Play scene
         this.load.path = './assets/img/'

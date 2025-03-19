@@ -14,6 +14,18 @@ class Menu extends Phaser.Scene {
         this.startImg.setOrigin(0.5, 0.5)
         
         // To-do: add particles to main menu
+        //this.particles = this.add.particles(width/2, height/2, 'particle-sparkle', Phaser.GameObjects.Particles.)
+
+        this.controls = this.add.text(0, 0, 'WASD/Arrows - Drive\nR - Restart', {
+            fontFamily: 'Arial',
+            fontSize: '32px',
+            color: '#ffffff',
+            padding: {
+                x: 10,
+                y: 5
+            }
+        });
+        this.controls.setOrigin(0, 1)
 
         World.initMenu(this)
     }
@@ -30,6 +42,11 @@ class Menu extends Phaser.Scene {
         this.bgImg.setDisplaySize(vSize*imgAspect, vSize)
         this.startImg.setPosition(width * 49/96, height * 15/24)
         this.startImg.setDisplaySize(vSize*imgAspect/2, vSize/8)
+        this.controls.setPosition(width/20, height)
+        this.controls.setDisplaySize(vSize*imgAspect/4, vSize/9)
+
+        // To-do: add particles to main menu
+        //this.particles.setPosition(width/2, height/2)
 
         if (World.start.isDown) {
             this.scene.start('playScene')
