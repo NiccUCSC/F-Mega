@@ -59,8 +59,6 @@ class Credits extends Phaser.Scene {
                 const update = (_, dt) => {
                     let width = this.cameras.main.width
                     let height = this.cameras.main.height
-                    let vSize = Math.min(height, width/imgAspect)
-                    //text.setDisplaySize(vSize/2)
                     const pos = {x: width / 2, y: height * list_height / (Credits.CREDITS.length + 1)}
                     text.setPosition(pos.x, pos.y)
                 }
