@@ -5,6 +5,9 @@
 //  Nicolas - Assets, Backend Code
 // Date: 03/18/2025
 // Hours: 100+
+// Credits:
+//  Particles, Music, & Sounds - Pixabay
+//  Menu Art - JoJo's Bizarre Adventure (put through Adobe Illustrator)
 
 
 'use strict'
