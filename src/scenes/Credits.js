@@ -3,6 +3,8 @@ class Credits extends Phaser.Scene {
         "Nicolas Valiancourt: Back-end code & assets",
         "Niko DiStefano: Front-end code & assets",
         "",
+        "Game \"F-MEGA\" from JoJo's Bizarre Adventure",
+        "",
         "All audio is free-use from Pixabay"
     ]
     static DELAY = 0.5      // In seconds
