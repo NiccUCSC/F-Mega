@@ -1,12 +1,9 @@
 class Menu extends Phaser.Scene {
-    constructor() {
-        super('menuScene')
+    constructor(sceneName) {
+        super(sceneName ? sceneName : 'menuScene')
     }
 
     create() {
-        let width = this.cameras.main.width
-        let height = this.cameras.main.height
-
         this.bgImg = this.add.sprite(0, 0, 'menu')
         this.bgImg.setOrigin(0.5, 0.5)
         

@@ -2,20 +2,17 @@ class Track {
     static gridSize = 128
     static tileSize = 64
     static gridPixelSize = Track.tileSize * Track.gridSize
-
+    
     /*  TILE IDs
-        1: finish line
-        2-23: checkpoints
-        24: fall death
-        47: wall
+        2: finish line
+        3-24: checkpoints
+        25: fall death
+        48: wall
         all other numbers: road
     */
 
     constructor(scene, x, y) {
         this.scene = scene
-
-
-        console.log("HERE")
 
         this.map = this.scene.make.tilemap({key: "track", tileWidth: 32, tileHeight: 32})
         console.log(this.map)

@@ -17,6 +17,8 @@ class World {
     static playTime = 0
     static realPlayTime = 0
 
+    static winner = 0   // 0 = car, 1 = car2, 2 = tie
+
     static target1miltime = 600   
     static avgSpeed = 32
     static pointMult = 1e6 / this.target1miltime / this.avgSpeed**2     // should take 10 mins at 1x speed at 32 m/s to reach 1000000 points
@@ -187,6 +189,7 @@ class World {
 
     static physicsUpdate(time, dt) {
         let car = this.PlayScene.car
+        let car2 = this.PlayScene.car
         let playerVel = car.box2dBody.getLinearVelocity()
         let playerPos = car.box2dBody.getPosition()
         this.carSpeedSquared = playerVel.x*playerVel.x + playerVel.y*playerVel.y
@@ -218,8 +221,30 @@ class World {
 
         if (car.alive) {
             this.playTime += 1/64                                   // simulated play time in scaled ticks
-            this.realPlayTime += 1/64/this.playSpeedMultiplier      // apprximate real play time in seconds
+            this.realPlayTime += 1/64/this.playSpeedMultiplier      // approximate real play time in seconds
             //this.PlayScene.worldTimeScale = this.playSpeedMultiplier * (1 + Math.log(1 + this.realPlayTime / 180))
+
+            // Get tiles cars are on
+            const tiles = {
+                car: this.PlayScene.track.layer.getTileAtWorldXY(car.x, car.y, true),
+                car2: this.PlayScene.track.layer.getTileAtWorldXY(car2.x, car2.y, true)
+            }
+            
+            // Define winner if a car is on the finish line tile (index 1)
+            const won = {
+                car: tiles.car.index == 2,
+                car2: tiles.car2.index == 2
+            }
+            if (won.car || won.car2) {
+                if (won.car && won.car2) {
+                    this.winner = 2
+                } else if (won.car) {
+                    this.winner = 0
+                } else if (won.car2) {
+                    this.winner = 1
+                }
+                // this.PlayScene.scene.start('winScene')
+            }
         }
     }
 
